@@ -1,4 +1,7 @@
+import sys
 from typing import Dict, List, Tuple
+
+sys.setrecursionlimit(5000)
 
 Node = Tuple[str, str]
 
@@ -56,8 +59,6 @@ def list_to_tree(data: List[Node]) -> Dict:
     # Проверка на наличие циклов происходит путем сравнения длины исходного списка
     # и количества узлов в результирующем словаре.
     if len(data) != _count_nodes(result) - 1:
-        print(len(data))
-        print(_count_nodes(result) - 1)
         raise ValueError('В графе присутствует цикл')
 
     return result
@@ -143,3 +144,6 @@ if __name__ == '__main__':
 
     print(list_to_tree(data))
     assert list_to_tree(data) == tree, 'wrong result'
+
+    pairs = [(None, 'a0'),] + [(f'a{i}', f'a{i + 1}') for i in range(999)]
+    print(list_to_tree(pairs))
